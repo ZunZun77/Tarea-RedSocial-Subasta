@@ -9,14 +9,16 @@ public class ThreadCelebridad extends Thread{
     }
 
     public void run() {
-        int contseguidores = 0;
+        
         while (true) {
-            if (celebridad.seguidores%10 == 0 && celebridad.seguidores > contseguidores) {
+            if (celebridad.seguidores >= celebridad.contseguidores) {
                 celebridad.notifyObservers(3, null);
-                contseguidores = celebridad.seguidores;
+                celebridad.contseguidores = celebridad.contseguidores * 10;
+
+                
             }
             for(int i = 0; i < celebridad.publicaciones.size(); i++) {
-                if (celebridad.publicaciones.get(i).likes%10 == 0 && celebridad.publicaciones.get(i).likes >= celebridad.publicaciones.get(i).medidordenivel) {
+                if (celebridad.publicaciones.get(i).likes >= celebridad.publicaciones.get(i).medidordenivel) {
                     celebridad.publicaciones.get(i).medidordenivel = celebridad.publicaciones.get(i).medidordenivel * 10;
                     celebridad.notifyObservers(2, celebridad.publicaciones.get(i));
                 }

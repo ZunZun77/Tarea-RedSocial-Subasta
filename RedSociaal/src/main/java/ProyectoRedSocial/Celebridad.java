@@ -3,6 +3,9 @@ package ProyectoRedSocial;
 
 //array include
 import java.util.ArrayList;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 //socket include
 import java.net.Socket;
@@ -10,11 +13,12 @@ import java.net.ServerSocket;
 import java.io.IOException;
 
 class Celebridad implements IOobservable {
-    private ArrayList<Observer> observers = new ArrayList<>();
+    ArrayList<Observer> observers = new ArrayList<>();
     int seguidores;
     ArrayList<Publicacion> publicaciones;
     private String nombre;
     SocketClient socket;
+    int contseguidores = 10;
 
     Celebridad() {
         nombre = "Pending";
@@ -44,7 +48,7 @@ class Celebridad implements IOobservable {
     public void AgregarSeguidores(int seguidores) {
         for (int i = 0; i < seguidores; i++) {
             this.seguidores++;
-            Seguidor seguidor = new Seguidor(i, this);
+            Seguidor seguidor = new Seguidor(i, this); 
             observers.add(seguidor);   
         }
         
@@ -101,11 +105,11 @@ class Celebridad implements IOobservable {
             }
         } else if (determinador == 2) {
             for (int i = 0; i < observers.size(); i++) {
-                observers.get(i).UpdateLikes(publicacion);
+                observers.get(i).UpdateLikes(publicacion, publicacion.medidordenivel);
             }
         } else if (determinador == 3) {
             for (int i = 0; i < observers.size(); i++) {
-                observers.get(i).UpdateSeguidores();
+                observers.get(i).UpdateSeguidores(contseguidores);
             }
         }
     }

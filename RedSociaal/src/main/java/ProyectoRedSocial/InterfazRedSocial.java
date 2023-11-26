@@ -4,6 +4,9 @@
  */
 package ProyectoRedSocial;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.security.Key;
 
 /**
@@ -183,7 +186,46 @@ public class InterfazRedSocial extends javax.swing.JFrame {
         darlikes.setVisible(true);
     }//GEN-LAST:event_AgregarLikesActionPerformed
     
-    private void DarseBajaActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void DarseBajaActionPerformed(java.awt.event.ActionEvent evt) {    
+        
+        if (Usuario.observers.size() == 0){
+            return;
+        }
+        // Especifica la ruta y el nombre del archivo
+        String rutaArchivo = "Log.txt";
+
+        // Crea un objeto File
+        File archivo = new File(rutaArchivo);
+        try {
+            // Verifica si el archivo ya existe
+            if (archivo.createNewFile()) {
+                System.out.println("Archivo creado con éxito.");
+            } else {
+                System.out.println("El archivo ya existe.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al crear el archivo: " + e.getMessage());
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            // Escribe en el archivo
+            writer.write("Log de la celebridad: " + Usuario.getNombre());
+            writer.newLine();
+            for (int i = 0; i < Usuario.observers.size(); i++) {
+                Seguidor seguidor = (Seguidor) Usuario.observers.get(i);
+                writer.write(seguidor.getLog());
+                writer.newLine();
+            }
+
+            
+
+            System.out.println("Contenido escrito en el archivo con éxito.");
+        } catch (Exception e) {
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    
+
+        
         this.setVisible(false);
     }
 

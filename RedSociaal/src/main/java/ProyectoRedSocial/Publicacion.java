@@ -4,7 +4,7 @@ public class Publicacion {
     String texto;
     int likes;
     int dislikes;
-    int medidordenivel = 1;
+    int medidordenivel = 10;
     Publicacion(String texto, int likes, int dislikes) {
         this.texto = texto;
         this.likes = likes;

@@ -16,8 +16,8 @@ public class Seguidor implements Observer {
      //Atributos
     int id;
     Celebridad celeb;
-    String celebritylog = "";
-    InterfazSeguidor interfaz = null;
+    String celebritylog = "Seguidor Id: ";
+
     //Constructores
     Seguidor(){
         id = 100;
@@ -26,35 +26,27 @@ public class Seguidor implements Observer {
     Seguidor(int id, Celebridad celeb){
         this.id = id;
         this.celeb = celeb;
+        celebritylog = celebritylog + id + "\n";
     }
     //Métodos = comportamiento de los objetos o lo que pueden hacer
 
-    void InterfazSeguidor(InterfazSeguidor interfaz) {
-        SocketClient socket = null;
-        try {
-            socket = new SocketClient(new Socket("127.0.0.1", 1050));
-        } catch (Exception e) {
-            System.out.println("Error al crear la interfaz");
-            return ;
-        }
-        interfaz = new InterfazSeguidor(this, socket);
-        interfaz.setVisible(true);
+    String getLog(){
+        return celebritylog;
     }
-
     @Override
-    public void UpdateSeguidores() {
-        System.out.println("record" + celeb.getNombre() + " ha llegado a " + celeb.seguidores + " seguidores!");
-        celebritylog = celeb.getNombre() + " ha llegado a " + celeb.seguidores + " seguidores!";
+    public void UpdateSeguidores(int seguidores) {
+        //System.out.println("record" + celeb.getNombre() + " ha llegado a " + celeb.seguidores + " seguidores!");
+        celebritylog = celebritylog + celeb.getNombre() + " ha llegado a " + seguidores + " seguidores!\n";
     }
 
     public void UpdatePublicacion(Publicacion publicacion) {
-        System.out.println("Se ha registrado una nueva publicacion");
-        celebritylog = celeb.getNombre() + " ha publicado: " + publicacion.texto;
+        //System.out.println("Se ha registrado una nueva publicacion");
+        celebritylog = celebritylog + celeb.getNombre() + " ha publicado: " + publicacion.texto + "\n";
     }
 
-    public void UpdateLikes(Publicacion publicacion) {
-        System.out.println("Se ha registrado un registro de likes" + publicacion.likes);
-        celebritylog = celeb.getNombre() + " ha llegado a " + publicacion.likes + " likes! en su publicacion: " + publicacion.texto + "\n";
+    public void UpdateLikes(Publicacion publicacion, int likes) {
+        //System.out.println("Se ha registrado un registro de likes" + publicacion.likes);
+        celebritylog = celebritylog + celeb.getNombre() + " ha llegado a " + likes + " likes! en su publicacion: " + publicacion.texto + "\n";
     }
 
     @Override

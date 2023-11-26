@@ -12,9 +12,9 @@ interface IOobservable {
 
 // Observer interface
 interface Observer {
-    void UpdateLikes(Publicacion publicacion);
+    void UpdateLikes(Publicacion publicacion, int likes);
     void UpdatePublicacion(Publicacion publicacion);
-    void UpdateSeguidores();
+    void UpdateSeguidores(int seguidores);
     void unsubscribe();
 }
 
