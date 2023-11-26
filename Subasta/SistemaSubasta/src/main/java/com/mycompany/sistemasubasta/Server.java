@@ -21,8 +21,9 @@ public class Server {
         } catch (IOException e) {
             throw new RuntimeException("No se pudo abrir el puerto 1050");
         }
-        acceptThread = new AcceptThread(this);
+        acceptThread = new AcceptThread(this, InterfazSubastante);
         acceptThread.start();
+        
     }
 
     public void broadcastUTF(String data, int index) {

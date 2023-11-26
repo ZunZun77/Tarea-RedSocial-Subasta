@@ -6,8 +6,10 @@ import java.io.DataOutputStream;
 
 public class AcceptThread extends Thread {
     Server server;
-    public AcceptThread(Server server){
+    Socket cliente;
+    public AcceptThread(Server server, Socket cliente){
         this.server = server;
+        this.cliente = cliente;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class AcceptThread extends Thread {
                         String fecha = entrada.readUTF();
                         Subasta subasta = new Subasta(nombre, cliente, fecha);
                         server.Subastas.add(subasta);
-                    } 
+                    }
                     else if (opcion == 2){
                         String nick = entrada.readUTF();
                         System.out.println("Nick recibido");
@@ -42,13 +44,16 @@ public class AcceptThread extends Thread {
                         }
                         System.out.println("Index recibido");
                         Subasta subasta = server.Subastas.get(index);
-                        subasta.ofertas.add(new Ofertante(cliente, server));
+                        subasta.ofertas.add(new Ofertante(cliente, server, nick));
                         String Fecha = subasta.fin;
                         String Precio = subasta.producto.precioActual;
                         salida.writeUTF(Fecha);
                         salida.writeUTF(Precio);
                         System.out.println("Datos enviados");
+                        ThreadServer thread = new ThreadServer(cliente, server);
+                        thread.start();
                         interfaz.dispose();
+                         
 
 
                     }

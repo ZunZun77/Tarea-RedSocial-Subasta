@@ -10,14 +10,19 @@ package com.mycompany.sistemasubasta;
  */
 
     import java.net.*;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 public class InterfazSubastante extends javax.swing.JFrame {
     Socket socket;
     String nick;
-
-
+    String ganador = "Ganador Actual: Usuario con 0$";
+    ArrayList<String> Autores = new ArrayList<String>();
+    int index=0;
     /**
      * Creates new form InterfazSubastante
      */
@@ -155,7 +160,20 @@ public class InterfazSubastante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
-        // TODO add your handling code here:
+        DataOutputStream salida = null;
+
+        try {
+            salida = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            salida.writeInt(5);
+            salida.writeUTF("Ganaste la subasta");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_CerrarActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
@@ -163,11 +181,26 @@ public class InterfazSubastante extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        // TODO add your handling code here:
+        DataOutputStream salida = null;
+
+        try {
+            salida = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Ganador.setText("Ganador Actual: " + ganador);
+        try {
+            salida.writeInt(4);
+            System.out.println(Ganador.getText());
+            salida.writeUTF(Ganador.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void ListaOfertasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaOfertasMouseClicked
-        // TODO add your handling code here:
+        ganador = ListaOfertas.getSelectedValue();
     }//GEN-LAST:event_ListaOfertasMouseClicked
 
     void AgregarPublicacion(String texto) {

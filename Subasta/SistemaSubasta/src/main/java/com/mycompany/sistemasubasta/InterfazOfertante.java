@@ -46,7 +46,7 @@ public class InterfazOfertante extends javax.swing.JFrame {
         Nick = new javax.swing.JLabel();
         Ofertadotextfield = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Precio.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         Precio.setText("Precio Actual = ");
@@ -109,6 +109,7 @@ public class InterfazOfertante extends javax.swing.JFrame {
         try {
         DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
         salida.writeInt(3);
+        salida.writeUTF(Nick.getText());
         salida.writeUTF(Ofertadotextfield.getText());
     } catch (Exception e) {
         e.printStackTrace();}

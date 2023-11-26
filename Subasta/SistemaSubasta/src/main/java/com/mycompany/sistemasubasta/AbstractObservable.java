@@ -6,13 +6,12 @@ import java.util.List;
 // Subject interface
 interface IOobservable {
     void registerObserver();
-    void removeObserver();
     void notifyObservers();
 }
 
 // Observer interface
 interface Observer {
-    void update();
+    void update(String precio);
     void unsubscribe();
 }
 

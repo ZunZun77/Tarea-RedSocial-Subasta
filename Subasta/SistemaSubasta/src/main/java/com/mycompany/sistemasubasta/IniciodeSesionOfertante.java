@@ -114,6 +114,8 @@ public class IniciodeSesionOfertante extends javax.swing.JFrame {
                 String Precio = entrada.readUTF();
                 InterfazOfertante interfaz = new InterfazOfertante(Nick.getText(), Fecha, Precio, socket);
                 interfaz.setVisible(true);
+                ThreadOfertante threadOfertante = new ThreadOfertante(socket, interfaz);
+                threadOfertante.start();
                 this.dispose();
             }catch(Exception e){
                 System.out.println("Error al conectarse al servidor");

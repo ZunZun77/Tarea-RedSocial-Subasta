@@ -7,7 +7,7 @@ public class Subasta implements IOobservable {
     String fin;
     Producto producto;
     String Status;
-    ArrayList<Ofertantes> ofertas;
+    ArrayList<Ofertante> ofertas;
     Socket Admin;
 
 
@@ -17,7 +17,7 @@ public class Subasta implements IOobservable {
         this.producto = new Producto(producto);
         this.Admin = Admin;
         this.Status = "Activa";
-        this.ofertas = new ArrayList<Ofertantes>();
+        this.ofertas = new ArrayList<Ofertante>();
     }
 
     public Subasta(String Nombre, Socket Admin, String fecha) {
@@ -26,7 +26,17 @@ public class Subasta implements IOobservable {
         this.producto = new Producto(Nombre);
         this.Admin = Admin;
         this.Status = "Activa";
-        this.ofertas = new ArrayList<Ofertantes>();
+        this.ofertas = new ArrayList<Ofertante>();
+    }
+
+
+    public Ofertante BuscarOferente(String nick) {
+        for (Ofertante ofertante : ofertas) {
+            if (ofertante.nick.equals(nick)) {
+                return ofertante;
+            }
+        }
+        return null;
     }
 
     @Override

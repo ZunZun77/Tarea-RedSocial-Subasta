@@ -165,6 +165,8 @@ public class InicioSesionSubastador extends javax.swing.JFrame {
             return;}
         InterfazSubastante interfaz = new InterfazSubastante(NickTextfield.getText(), socket);
         interfaz.setVisible(true);
+        ThreadSubastante threadSubastante = new ThreadSubastante(socket, interfaz);
+        threadSubastante.start();
         this.dispose();
     }//GEN-LAST:event_AceptarActionPerformed
 
