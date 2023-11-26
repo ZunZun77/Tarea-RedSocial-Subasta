@@ -13,7 +13,7 @@ import java.net.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 public class InterfazOfertante extends javax.swing.JFrame {
-    
+    Socket socket;
 
     /**
      * Creates new form InterfazOfertante
@@ -24,6 +24,7 @@ public class InterfazOfertante extends javax.swing.JFrame {
         Nick.setText(nick);
         Fecha.setText("Termina el " + fecha);
         Precio.setText("Valor actual: " + precio);
+        this.socket = socket;
     }
 
     public InterfazOfertante() {
@@ -104,8 +105,14 @@ public class InterfazOfertante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void OfertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OfertarActionPerformed
-        DataOutputStream salida = new DataOutputStream(socket.getOutputStream()); 
+    private void OfertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
+        try {
+        DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
+        salida.writeInt(3);
+        salida.writeUTF(Ofertadotextfield.getText());
+    } catch (Exception e) {
+        e.printStackTrace();}
+
     }//GEN-LAST:event_OfertarActionPerformed
 
     
@@ -158,6 +165,6 @@ public class InterfazOfertante extends javax.swing.JFrame {
     private javax.swing.JLabel Nick;
     private javax.swing.JTextField Ofertadotextfield;
     private javax.swing.JButton Ofertar;
-    private javax.swing.JLabel Precio;
+    public javax.swing.JLabel Precio;
     // End of variables declaration//GEN-END:variables
 }

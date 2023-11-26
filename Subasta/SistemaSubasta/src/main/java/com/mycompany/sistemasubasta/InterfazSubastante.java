@@ -10,7 +10,10 @@ package com.mycompany.sistemasubasta;
  */
 
     import java.net.*;
-public class InterfazSubastante extends javax.swing.JFrame implements IOobservable {
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+public class InterfazSubastante extends javax.swing.JFrame {
     Socket socket;
     String nick;
 
@@ -47,6 +50,8 @@ public class InterfazSubastante extends javax.swing.JFrame implements IOobservab
         Ganador = new javax.swing.JLabel();
         Cerrar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
+        DefaultListModel<String> usuarioListModel = new DefaultListModel<>();
+        ListaOfertas = new JList<>(usuarioListModel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +169,16 @@ public class InterfazSubastante extends javax.swing.JFrame implements IOobservab
     private void ListaOfertasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaOfertasMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_ListaOfertasMouseClicked
+
+    void AgregarPublicacion(String texto) {
+        DefaultListModel<String> model = (DefaultListModel<String>) ListaOfertas.getModel();
+
+        // Agregar la nueva publicación al modelo existente
+        model.addElement(texto);
+
+        // Actualizar el JList para reflejar los cambios en el modelo
+        ListaOfertas.setModel(model);
+    }
 
     /**
      * @param args the command line arguments

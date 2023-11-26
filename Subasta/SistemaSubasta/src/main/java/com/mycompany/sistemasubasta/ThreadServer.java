@@ -4,8 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.io.OutputStream;
 
-public class ThreadServer {
+public class ThreadServer extends Thread {
     Socket cliente;
     String username;
     Server server;
@@ -28,7 +29,6 @@ public class ThreadServer {
         try {
             salida.writeUTF(data);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -37,27 +37,27 @@ public class ThreadServer {
         try {
             salida.writeInt(data);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-    void static run() {
+
+    @Override
+
+    public void run() {
         try {
             entrada = new DataInputStream(cliente.getInputStream());
             salida = new DataOutputStream(cliente.getOutputStream());
             int opcion = entrada.readInt();
-            if (opcion == 1){
-                username = entrada.readUTF();
-                String nombrePartida = entrada.readUTF();
-                int cantidadJugadores = entrada.readInt();
-                server.crearPartida(username, nombrePartida, cantidadJugadores, cliente, this);
-            }
-            else if (opcion == 2){
-                String nombrePartida = entrada.readUTF();
-                String host = entrada.readUTF();
-                server.iniciarPartida(nombrePartida, host);
+            if (opcion == 3) {
+                String precio = entrada.readUTF();
+                OutputStream adminOutputStream = server.Subastas.get(0).Admin.getOutputStream();
+                salida = new DataOutputStream(adminOutputStream);
+                salida.writeUTF(precio);
+            } else if (opcion == 4) {
+                // Handle option 4
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
+        }
     }
-    }
+}
